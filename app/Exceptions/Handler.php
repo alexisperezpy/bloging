@@ -48,19 +48,34 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof ValidationException) {
+            if ($request->expectsJson()) {
+                return response('Sorry, validation failed.', 422);
+            }
+        }
+      /*  if ($request->is('api/*')) {
+            if ($exception instanceof ModelNotFoundException) {
+                $model = strtolower(class_basename($exception->getModel()));
+
+                return response()->json([
+                    'error' => 'Model not found'
+                ], 404);
+            }
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json('Resource not found', 404);
+            }
+        }
+        */
         if ($exception instanceof ModelNotFoundException) {
-            return response()->json([
-                "res" => false,
-                "error" => "Error! registro no encontrado"
-            ], 400);
+            return response()->json("Error! registro no encontrado", 400);
         }
         
         if ($exception instanceof RouteNotFoundException) {
-            return response()->json([
-                "res" => false,
-                "error" => "Error! no tiene permisos para acceder a esta ruta"
-            ], 401);
-            return parent::render($request, $exception);
+            return response()->json(
+                "Error! no tiene permisos para acceder a esta ruta", 401);
         }
+            
+        return parent::render($request, $exception);
+        
     }
 }

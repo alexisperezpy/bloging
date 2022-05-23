@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +12,16 @@ use Illuminate\Support\Facades\Route;
 });
 */
 
-Route::group(['prefix' => '/v1'], function () {
+Route::group([
+        'prefix' => '/v1',
+        'middleware' => 'api'
+    ], function ($router) {
+    Route::post('register',[AuthController::class,'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('profile', [AuthController::class, 'me']);
+    
     Route::get('articles',[ArticleController::class,'index']);
     Route::get('articles/{article}',[ArticleController::class,'show']);
     Route::post('articles',[ArticleController::class,'store']);

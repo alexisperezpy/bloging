@@ -1,48 +1,28 @@
 <?php
 
 return [
-
-    
-
+  
     'name' => env('APP_NAME', 'Laravel'),
-
-   
 
     'env' => env('APP_ENV', 'production'),
 
-    
-
     'debug' => (bool) env('APP_DEBUG', false),
-
-   
 
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
-    
-
     'timezone' => 'America/Asuncion',
-
-    
 
     'locale' => 'es',
 
-    
-
     'fallback_locale' => 'en',
 
-    
-
     'faker_locale' => 'es_ES',
-
-    
 
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
-
-    
 
     'providers' => [
 
@@ -71,7 +51,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -124,6 +104,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //Customs
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
     ],
 
